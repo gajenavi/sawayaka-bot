@@ -1,0 +1,29 @@
+name: さわやか待ち時間取得ボット
+
+on:
+  schedule:
+    # 10分おきに実行（日本時間は+9時間なので少しズレますが、定期実行されます）
+    - cron: '*/10 * * * *'
+  workflow_dispatch: # 手動実行ボタンもつける
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - name: コードを取得
+        uses: actions/checkout@v3
+
+      - name: Pythonをセットアップ
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: 必要な部品をインストール
+        run: |
+          pip install -r requirements.txt
+
+      - name: スクレイピング実行
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+        run: python main.py
