@@ -10,7 +10,7 @@ supabase = create_client(url, key)
 
 def scrape_and_update():
     # 2. さわやか公式サイト（全店一括表示ページ）
-    target_url = "https://airwait.jp/WC00001501/PB00001502/embed/wait-time"
+    target_url = "https://airwait.jp/WC00001501/PB00001502/embed/wait-time?fId=PB00001502"
     
     try:
         response = requests.get(target_url)
